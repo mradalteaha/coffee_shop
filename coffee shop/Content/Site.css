@@ -404,10 +404,19 @@ section {
     height: 650px;
 }
 
-    .tables .box-container .box {
+.table_heading {
+    text-align: center;
+    color: sandybrown;
+    text-transform: uppercase;
+    padding-bottom: 3.5rem;
+    font-size: 4rem;
+}
+
+    .tables .box-container .box  {
         padding: 5rem;
         text-align: center;
         border: var(--border);
+        
         background-color:aquamarine;
     }
 
