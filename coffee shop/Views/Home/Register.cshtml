@@ -1,0 +1,93 @@
+﻿@model coffee_shop.Models.UserModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">  -->
+<!-- custom css file link  -->
+<!-- <link rel="stylesheet" href="~/Content/Site.css">  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="~/Content/Site.css">
+
+
+
+<section class="register" id="register">
+    <h1 class="heading"> <span>Register</span> </h1>
+
+
+
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="inputBox">
+            <span class="fas fa-user"></span>
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @placeholder = "First name" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="inputBox">
+            <span class="fas fa-user"></span>
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @placeholder = "Last name" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="inputBox">
+            <span class="fas fa-user"></span>
+            @Html.EditorFor(model => model.username, new { htmlAttributes = new { @placeholder = "Username" } })
+            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="inputBox">
+            <span class="fas fa-envelope"></span>
+            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @placeholder = "Email name" } })
+            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="inputBox">
+            <span class="fas fa-phone"></span>
+            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @placeholder = "Phone Number" } })
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="inputBox">
+            <span class="fas fa-key"></span>
+
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @placeholder = "Password" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            <h1 class="label"> <span>isAdmin</span> </h1>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isAdmin)
+                    @Html.ValidationMessageFor(model => model.isAdmin, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h1 class="label"> <span>isBarista</span> </h1>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isBarista)
+                    @Html.ValidationMessageFor(model => model.isBarista, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Register" class="btn btn-default" />
+            </div>
+        </div>
+    }
+    </div>
+
+    
+</section>
+

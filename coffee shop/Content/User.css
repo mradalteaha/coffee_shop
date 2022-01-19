@@ -74,6 +74,7 @@ section {
         letter-spacing: .2rem;
     }
 
+
 .header {
     background: var(--bg);
     display: flex;
@@ -104,65 +105,115 @@ section {
             padding-bottom: .5rem;
         }
 
-
-
-
-.sharedheader {
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 7%;
-    border-bottom: var(--border);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-}
-
-    .sharedheader .logo img {
-        height: 6rem;
-    }
-
-    .sharedheader .navbar a {
-        margin: 0 1rem;
-        font-size: 1.6rem;
-        color: #fff;
-    }
-
-        .sharedheader .navbar a:hover {
-            color: var(--main-color);
-            border-bottom: .1rem solid var(--main-color);
-            padding-bottom: .5rem;
-        }
-
-    .sharedheader .icons div {
+    .header .icons div {
         color: #fff;
         cursor: pointer;
         font-size: 2.5rem;
         margin-left: 2rem;
     }
 
-        .sharedheader .icons div:hover {
+        .header .icons div:hover {
             color: var(--main-color);
         }
-
-
-.sharedheader .icons div {
-    color: #fff;
-    cursor: pointer;
-    font-size: 2.5rem;
-    margin-left: 2rem;
-}
-
-    .sharedheader .icons div:hover {
-        color: var(--main-color);
-    }
 
 #menu-btn {
     display: none;
 }
+
+.header .search-form {
+    position: absolute;
+    top: 115%;
+    right: 7%;
+    background: #fff;
+    width: 50rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+    .header .search-form.active {
+        transform: scaleY(1);
+    }
+
+    .header .search-form input {
+        height: 100%;
+        width: 100%;
+        font-size: 1.6rem;
+        color: var(--black);
+        padding: 1rem;
+        text-transform: none;
+    }
+
+    .header .search-form label {
+        cursor: pointer;
+        font-size: 2.2rem;
+        margin-right: 1.5rem;
+        color: var(--black);
+    }
+
+        .header .search-form label:hover {
+            color: var(--main-color);
+        }
+
+.header .cart-items-container {
+    position: absolute;
+    top: 100%;
+    right: -100%;
+    height: calc(100vh - 9.5rem);
+    width: 35rem;
+    background: #fff;
+    padding: 0 1.5rem;
+}
+
+    .header .cart-items-container.active {
+        right: 0;
+    }
+
+    .header .cart-items-container .cart-item {
+        position: relative;
+        margin: 2rem 0;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+        .header .cart-items-container .cart-item .fa-times {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--black);
+        }
+
+            .header .cart-items-container .cart-item .fa-times:hover {
+                color: var(--main-color);
+            }
+
+        .header .cart-items-container .cart-item img {
+            height: 7rem;
+        }
+
+        .header .cart-items-container .cart-item .content h3 {
+            font-size: 2rem;
+            color: var(--black);
+            padding-bottom: .5rem;
+        }
+
+        .header .cart-items-container .cart-item .content .price {
+            font-size: 1.5rem;
+            color: var(--main-color);
+        }
+
+    .header .cart-items-container .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+
+
 
 
 
@@ -306,19 +357,9 @@ section {
 
 
 
-
-.tables {
-    background-color:wheat;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    gap: 1.5rem;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    height: 650px;
-}
 .tables .box-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 1.5rem;
     overflow-y: scroll;
     scroll-behavior: smooth;
@@ -333,45 +374,43 @@ section {
     font-size: 4rem;
 }
 
-    .tables .box-container .box  {
-        padding: 5rem;
-        text-align: center;
-        border: var(--border);
-        
-        background-color:aquamarine;
+.tables .box-container .box {
+    padding: 5rem;
+    text-align: center;
+    border: var(--border);
+    background-color: aquamarine;
+}
+
+    .tables .box-container .box img {
+        height: 150px;
+        width: 150px;
     }
 
-        .tables .box-container .box img {
-            height:150px;
-            width:150px;
-     
+    .tables .box-container .box h3 {
+        color: black;
+        font-size: 2rem;
+        padding: 1rem 0;
+    }
+
+    .tables .box-container .box .price {
+        color: #fff;
+        font-size: 2.5rem;
+        padding: .5rem 0;
+    }
+
+        .tables .box-container .box .price span {
+            font-size: 1.5rem;
+            text-decoration: line-through;
+            font-weight: lighter;
         }
 
-        .tables .box-container .box h3 {
-            color: black;
-            font-size: 2rem;
-            padding: 1rem 0;
+    .tables .box-container .box:hover {
+        background: #fff;
+    }
+
+        .tables .box-container .box:hover > * {
+            color: var(--black);
         }
-
-        .tables .box-container .box .price {
-            color: #fff;
-            font-size: 2.5rem;
-            padding: .5rem 0;
-        }
-
-            .tables .box-container .box .price span {
-                font-size: 1.5rem;
-                text-decoration: line-through;
-                font-weight: lighter;
-            }
-
-        .tables .box-container .box:hover {
-            background: #fff;
-        }
-
-            .tables .box-container .box:hover > * {
-                color: var(--black);
-            }
 
 
 
@@ -418,117 +457,6 @@ section {
                 background: var(--main-color);
             }
 
-
-
-
-.register {
-    display: flex;
-    background: var(--black);
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-
-
-
-.register .row form {
-    flex: 1 1 45rem;
-    padding: 5rem 2rem;
-    text-align: center;
-}
-
-    .register .row form h3 {
-        text-transform: uppercase;
-        font-size: 3.5rem;
-        color: #fff;
-    }
-
-    .register .row form .inputBox {
-        display: flex;
-        align-items: center;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        background: var(--bg);
-        border: var(--border);
-    }
-
-        .register .row form .inputBox span {
-            color: #fff;
-            font-size: 2rem;
-            padding-left: 2rem;
-        }
-
-        .register .row form .inputBox input {
-            width: 100%;
-            padding: 2rem;
-            font-size: 1.7rem;
-            color: #fff;
-            text-transform: none;
-            background: none;
-        }
-
-
-    .register .row form .form-group {
-        text-align: center;
-        color: var(--main-color);
-        text-transform: uppercase;
-    }
-
-    .register .row form .form-group .span {
-        color: var(--main-color);
-        text-transform: uppercase;
-        font-size: 1.7rem;
-    }
-
-
-
-
-
-.login {
-    display: flex;
-    background: var(--black);
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-
-
-
-    .login .row form {
-        flex: 1 1 45rem;
-        padding: 5rem 2rem;
-        text-align: center;
-    }
-
-        .login .row form h3 {
-            text-transform: uppercase;
-            font-size: 3.5rem;
-            color: #fff;
-        }
-
-        .login .row form .inputBox {
-            display: flex;
-            align-items: center;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            background: var(--bg);
-            border: var(--border);
-        }
-
-            .login .row form .inputBox span {
-                color: #fff;
-                font-size: 2rem;
-                padding-left: 2rem;
-            }
-
-            .login .row form .inputBox input {
-                width: 100%;
-                padding: 2rem;
-                font-size: 1.7rem;
-                color: #fff;
-                text-transform: none;
-                background: none;
-            }
 
 
 

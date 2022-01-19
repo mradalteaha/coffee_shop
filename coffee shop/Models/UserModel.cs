@@ -8,11 +8,12 @@ using System.Web;
 namespace coffee_shop.Models
 {
 
-    [Table("Users")]
+   // [Table("Users")]
     public partial class UserModel
 
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -22,16 +23,22 @@ namespace coffee_shop.Models
         public string LastName { get; set; }
 
         [Required]
-        public string Username { get; set; }
+        public string username { get; set; }
+        
+        [Required]
+        public string email { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
 
-        [Required]
+        //[StringLength(10)]
+        //[Required(ErrorMessage = "Please select a Role")]
+        //public string Role { get; set; }
+
         public string Password { get; set; }
+        public bool isAdmin { get; set; }
+        public bool isBarista { get; set; }
 
-        [StringLength(10)]
-        [Required(ErrorMessage = "Please select a Role")]
-        public string Role { get; set; }
+
     }
 }

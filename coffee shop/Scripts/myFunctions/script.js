@@ -1,4 +1,5 @@
 ﻿
+
 let navbar = document.querySelector('.navbar');
 
 document.querySelector('#menu-btn').onclick = () => {
@@ -50,9 +51,9 @@ function Add() {
 }
 
 
+function alreadyexist() {
 
-function myFunction() {
+    alert("User already exist");
 
-    alert("clicked");
-    return true;
+    return true
 }

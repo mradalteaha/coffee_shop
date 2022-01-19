@@ -20,11 +20,29 @@ namespace coffee_shop
             defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
+        
+
             routes.MapRoute(
-       name: "Register",
-       url: "Home/Register/Register",
-       defaults: new { controller = "Register", action = "Register", id = UrlParameter.Optional }
-   );
+             name: "Login",
+             url: "Home/Login",
+             defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
+
+
+        );
+
+
+        routes.MapRoute(
+        name: "Admin",
+        url: "UserModels/Admin",
+        defaults: new { controller = "UserModels", action = "Admin", id = UrlParameter.Optional }
+                );
+
+            routes.MapRoute(
+            name: "Barista",
+            url: "UserModels/Barista",
+            defaults: new { controller = "UserModels", action = "Barista", id = UrlParameter.Optional }
+                    );
+
 
 
 
