@@ -1,0 +1,15 @@
+Data base file 
+
+CREATE TABLE [dbo].[products](
+	[ProductName] [nvarchar](50) NOT NULL,
+	[ProductID] [nchar](10) NOT NULL,
+	[Price] [numeric](18, 2) NOT NULL,
+	[Description] [nvarchar](250) NULL,
+	[imagepath] [nvarchar](250) NOT NULL,
+	[Catgoryid] [int] NOT NULL,
+ CONSTRAINT [PK_products] PRIMARY KEY CLUSTERED 
+(
+	[ProductID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
