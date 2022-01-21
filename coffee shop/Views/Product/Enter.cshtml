@@ -1,0 +1,106 @@
+﻿@model coffee_shop.ViewModels.ProductViewModel
+@using coffee_shop.Models;
+
+<h2>Index</h2>
+
+
+
+<div class="container">
+    @using (Html.BeginForm("Submit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="col-md-4">
+            <div class="form-group">
+                Category :
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                ProductID :
+                @Html.TextBoxFor(model => model.myprod.ProductID, new { @class = "form-control", autocomplete = "Off" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                Product Name :
+                @Html.TextBoxFor(model => model.myprod.ProductName, new { @class = "form-control", autocomplete = "Off" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                Description :
+                @Html.TextBoxFor(model => model.myprod.Description, new { @class = "form-control", autocomplete = "Off" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                Price :
+                @Html.TextBoxFor(model => model.myprod.Price, new { @class = "form-control", autocomplete = "Off" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                image path :
+                @Html.TextBoxFor(model => model.myprod.imagepath, new { type = "file", @class = "form-control" })
+            </div>
+        </div>
+
+        <div>
+            <input type="submit" value="Add Product" class="btn btn-primary" id="btnSave" />
+            &nbsp;
+            <input type="reset" value="Reset" name="reset" class="btn btn-danger" />
+        </div>
+    }
+
+
+    <table>
+        <tr>
+            <th>
+                ProductID
+            </th>
+            <th>
+                ProductName
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Image
+            </th>
+
+
+        </tr>
+        @foreach (product mypro in Model.products)
+        {
+            <tr>
+                <td>
+                    @mypro.ProductID
+                </td>
+                <td>
+                    @mypro.ProductName
+                </td>
+
+                <td>
+                    @mypro.Price
+                </td>
+                <td>
+                    <img src="@Url.Content(mypro.Description)" width="300" height="300" />
+
+                </td>
+
+            </tr>
+
+        }
+
+    </table>
+
+
+</div>
