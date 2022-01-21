@@ -252,6 +252,11 @@ section {
             font-size: 2rem;
             padding: 1rem 0;
         }
+        .menu .box-container .box h2 {
+            color: #fff;
+            font-size: 2rem;
+            padding: 1rem 0;
+        }
 
         .menu .box-container .box .price {
             color: #fff;
@@ -307,18 +312,10 @@ section {
 
 
 
-.tables {
-    background-color:wheat;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    gap: 1.5rem;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    height: 650px;
-}
+
 .tables .box-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 1.5rem;
     overflow-y: scroll;
     scroll-behavior: smooth;
@@ -338,7 +335,7 @@ section {
         text-align: center;
         border: var(--border);
         
-        background-color:aquamarine;
+        background-color:lightgreen;
     }
 
         .tables .box-container .box img {
@@ -353,11 +350,7 @@ section {
             padding: 1rem 0;
         }
 
-        .tables .box-container .box .price {
-            color: #fff;
-            font-size: 2.5rem;
-            padding: .5rem 0;
-        }
+      
 
             .tables .box-container .box .price span {
                 font-size: 1.5rem;

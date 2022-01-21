@@ -279,26 +279,37 @@ section {
             line-height: 1.8;
         }
 
-.menu .box-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-    gap: 1.5rem;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    height: 650px;
-}
 
-    .menu .box-container .box {
-        padding: 5rem;
-        text-align: center;
-        border: var(--border);
+
+
+    .menu .box-container {
+        background: var(--black);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        gap: 1.5rem;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        height: 650px;
     }
+
+        .menu .box-container .box {
+            padding: 5rem;
+            text-align: center;
+            border: var(--border);
+            background: var(--black);
+        }
 
         .menu .box-container .box img {
             height: 10rem;
         }
 
         .menu .box-container .box h3 {
+            color: #fff;
+            font-size: 2rem;
+            padding: 1rem 0;
+        }
+
+        .menu .box-container .box h2 {
             color: #fff;
             font-size: 2rem;
             padding: 1rem 0;
@@ -357,6 +368,7 @@ section {
 
 
 
+
 .tables .box-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
@@ -378,7 +390,7 @@ section {
     padding: 5rem;
     text-align: center;
     border: var(--border);
-    background-color: aquamarine;
+    background-color: lightgreen;
 }
 
     .tables .box-container .box img {
@@ -392,17 +404,13 @@ section {
         padding: 1rem 0;
     }
 
-    .tables .box-container .box .price {
-        color: #fff;
-        font-size: 2.5rem;
-        padding: .5rem 0;
-    }
 
-        .tables .box-container .box .price span {
-            font-size: 1.5rem;
-            text-decoration: line-through;
-            font-weight: lighter;
-        }
+
+    .tables .box-container .box .price span {
+        font-size: 1.5rem;
+        text-decoration: line-through;
+        font-weight: lighter;
+    }
 
     .tables .box-container .box:hover {
         background: #fff;
@@ -411,6 +419,7 @@ section {
         .tables .box-container .box:hover > * {
             color: var(--black);
         }
+
 
 
 

@@ -33,7 +33,7 @@ window.onscroll = () => {
 
 function myFunction() {
 
-    alert("testing button");
+    alert(123);
 
     return true
 }

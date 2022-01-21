@@ -38,6 +38,8 @@ namespace coffee_shop.Models
         public string Password { get; set; }
         public bool isAdmin { get; set; }
         public bool isBarista { get; set; }
+        public bool isVip { get; set; }
+        public int cupcounter { get; set; }
 
 
     }

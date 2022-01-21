@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using coffee_shop.viewmodels;
 
 namespace coffee_shop.Controllers
 {
@@ -14,7 +15,16 @@ namespace coffee_shop.Controllers
         private UserDal db = new UserDal();
         public ActionResult Index()
         {
-            return View();
+
+           
+                CoffeeShopEntities enit = new CoffeeShopEntities();
+                viewProductModel pvm = new viewProductModel();
+                List<product> products = enit.products.ToList<product>();
+                pvm.myprod = new product();
+                pvm.products = products;
+                return View(pvm);
+            
+          
         }
 
     
@@ -66,36 +76,36 @@ namespace coffee_shop.Controllers
             UserModel user = db.Users.Where(x => x.username == input.username && x.Password == input.Password).FirstOrDefault();
             try
             {
-                if (ModelState.IsValid)
-                {
+                
                     if (user == null)
                     {
                         ViewBag.massage = "Password or username is not correct.";
                         return View("Login");
                     }
-                    else if (user.isAdmin)
-                    {
-                        Session["name"] = user.username;
-                        return RedirectToAction("Admin", "UserModels");
-                    }
-                    else if (user.isBarista)
-                    {
-                        Session["name"] = user.username;
-                        return RedirectToAction("Barista", "UserModels");
-                    }
-                    else {
-                        Session["name"] = user.username;
-                        return RedirectToAction("Index", "UserModels");
-                    }
 
-                  
+                 else if (user.isAdmin)
+                {
+                    Session["name"] = user.username;
+                    return RedirectToAction("Admin", "UserModels");
                 }
+                else if (user.isBarista)
+                {
+                    Session["name"] = user.username;
+                    return RedirectToAction("Barista", "UserModels");
+                }
+                else
+                {
+                    Session["name"] = user.username;
+                    return RedirectToAction("Index", "UserModels");
+                }
+
+
 
             }
             catch (Exception ex)
             {
             }
-            return  View("Login");
+            return  View("Index");
         }
 
     }

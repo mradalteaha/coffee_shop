@@ -1,14 +1,26 @@
 ﻿
-@model IEnumerable<coffee_shop.Models.UserModel>
+@model coffee_shop.viewmodels.viewProductModel
+@using coffee_shop.Models;
 @{
     ViewBag.Title = "Admin";
 }
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script>
+    function myFunction() {
 
+        alert(123);
+
+        return true
+    }
+</script>
 <!-- design css file link  -->
 <link rel="stylesheet" href="~/Content/Site.css">
+
+
+
+
 
 <header class="header">
 
@@ -16,10 +28,10 @@
         <img src="~/assets/images/logo.png" alt="">
     </a>
 
-    <nav class="navbar">   
+    <nav class="navbar">
         <a href="#menu">Menu</a>
         <a href="#tables">Tables</a>
-      
+
 
     </nav>
 
@@ -29,122 +41,192 @@
 
 
 <!-- home section ends -->
-
 <!-- menu section starts  -->
+<body>
+    <section class="menu" id="menu">
 
-<section class="menu" id="menu">
+        <h1 class="heading"> our <span>menu</span> </h1>
+        
+        @foreach (product mypro in Model.products)
+        {
 
-    <h1 class="heading"> our <span>menu</span> </h1>
 
-    <div class="box-container">
-        <div class="box">
-            <img src="../assets/images/menu-1.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
+            <div class="box-container">
+                <div class="box">
+                    <img src="@Url.Content(mypro.imagePath)"  />
+                    <h3>  @mypro.productName</h3>
+                    <h2>@mypro.productDesc</h2>
+                    <div class="price"> @mypro.productPrice <span> @mypro.productOldP</span></div>
+                    <div>
+                        <div class="inputBox">
+                            <span class="fas fa-shekel-sign"></span>
+                            @Html.EditorFor(model => model.myprod.productOldP, new { htmlAttributes = new { @placeholder = "New Price" } })
+                        </div>
+                        &nbsp;
+                        <div>
+
+                            <input onclick="javascript:window.location=('@Url.Action("Delete", "UserModels",  new { id = mypro.productId })')" type="button" value="Delete product" class="btn btn-primary" id="btnSave" />
+                            &nbsp;
+                            <input onclick="javascript:window.location=('@Url.Action("Edit", "UserModels",  new {  id = mypro.productId  })')" type="button" value="Update Price" class="btn btn-primary" id="btnSave" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+
+
+
+
+
+
+    </section>
+
+
+    <section class="login" id="login">
+        <h1 class="heading"> <span>Add item to menu</span> </h1>
+
+
+
+
+        <div class="row">
+            @using (Html.BeginForm("Submit", "UserModels", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                <div class="inputBox">
+                    <span class="fas fa-id-card"></span>
+                    @Html.EditorFor(model => model.myprod.productId, new { htmlAttributes = new { @placeholder = "product ID" } })
+                    @Html.ValidationMessageFor(model => model.myprod.productId, "", new { @class = "text-danger" })
+                </div>
+                <div class="inputBox">
+                    <span class="fas fa-id-card"></span>
+                    @Html.EditorFor(model => model.myprod.productName, new { htmlAttributes = new { @placeholder = "Product Name" } })
+                    @Html.ValidationMessageFor(model => model.myprod.productName, "", new { @class = "text-danger" })
+                </div>
+                <div class="inputBox">
+                    <span class="fas fa-info"></span>
+                    @Html.EditorFor(model => model.myprod.productDesc, new { htmlAttributes = new { @placeholder = "Product Description" } })
+                    @Html.ValidationMessageFor(model => model.myprod.productDesc, "", new { @class = "text-danger" })
+                </div>
+                <div class="inputBox">
+                    <span class="fas fa-shekel-sign"></span>
+                    @Html.EditorFor(model => model.myprod.productPrice, new { htmlAttributes = new { @placeholder = "Product Price" } })
+                    @Html.ValidationMessageFor(model => model.myprod.productPrice, "", new { @class = "text-danger" })
+                </div>
+                <div class="inputBox">
+                    <span class="fas image"></span>
+                    @Html.EditorFor(model => model.myprod.imagePath, new { htmlAttributes = new { type = "File" } })
+
+                </div>
+
+
+
+                <div>
+                <input type="submit" value="add item to menu" class="btn btn-primary" id="btnSave" />
+                &nbsp;
+                <input type="reset" value="Reset" name="reset" class="btn btn-danger" />
+
+            </div>
+            }
         </div>
 
-        <div class="box">
-            <img src="../assets/images/menu-2.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
+
+    </section>
+
+
+    <!-- menu section ends -->
+    <!-- book table section start -->
+
+    <section class="tables" id="tables">
+
+
+        <h1 class="table_heading"> <span> Book your table: </span> </h1>
+
+        <div class="inside_tables" id="inside">
+            &nbsp;
+            <div>
+                <input type="submit" value="add Table" class="btn btn-primary" id="btnSave" />
+                &nbsp;
+                <input type="reset" value="Remove Table" name="reset" class="btn btn-danger" />
+
+            </div>
+            <h1 class="heading"> inside Tables: </h1>
+            <div class="box-container">
+                <div class="box">
+                    <img src="~/assets/images/table.png" alt="">
+                    <h3>Two persons table</h3>
+                    <a href="#" class="btn">Reserve!</a>
+                </div>
+
+                <div class="box">
+                    <img src="~/assets/images/table.png" alt="">
+                    <h3>Two persons table</h3>
+
+                    <a href="#" class="btn">Reserve!</a>
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+        <div class="outside_tables" id="out">
+            <h1 class="heading"> outside Tables: </h1>
+            &nbsp;
+            <div>
+                <input type="submit" value="add Table" class="btn btn-primary" id="btnSave" />
+                &nbsp;
+                <input type="reset" value="Remove Table" name="reset" class="btn btn-danger" />
+
+            </div>
+            <div class="box-container">
+                <div class="box">
+                    <img src="~/assets/images/table.png" alt="">
+                    <h3>Two persons table</h3>
+
+                    <a href="#" class="btn">Reserve!</a>
+                </div>
+
+                <div class="box">
+                    <img src="~/assets/images/table.png" alt="">
+                    <h3>Two persons table</h3>
+
+                    <a href="#" class="btn">Reserve!</a>
+                </div>
+                <div class="box">
+                    <img src="~/assets/images/table.png" alt="">
+                    <h3>Two persons table</h3>
+
+                    <a href="#" class="btn">Reserve!</a>
+                </div>
+                <div class="box">
+                    <img src="~/assets/images/table.png" alt="">
+                    <h3>Two persons table</h3>
+
+                    <a href="#" class="btn">Reserve!</a>
+                </div>
+                <div class="box">
+                    <img src="~/assets/images/table.png" alt="">
+                    <h3>Two persons table</h3>
+
+                    <a href="#" class="btn">Reserve!</a>
+                </div>
+            </div>
+
         </div>
 
-        <div class="box">
-            <img src="../assets/images/menu-3.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
 
+    </section>
+    <!-- book table section ends-->
+    <!-- footer section starts  -->
 
-    </div>
-
-</section>
-
-<!-- menu section ends -->
-
-<!-- book table section start -->
-
-<section class="tables" id="tables">
-
-
-    <h1 class="table_heading"> <span> Book your table: </span> </h1>
-
-    <div class="inside_tables" id="inside">
-        <h1 class="heading"> inside Tables: </h1>
-        <div class="box-container">
-            <div class="box">
-                <img src="~/assets/images/table.png" alt="">
-                <h3>Two persons table</h3>
-                <a href="#" class="btn">Reserve!</a>
-            </div>
-
-            <div class="box">
-                <img src="~/assets/images/table.png" alt="">
-                <h3>Two persons table</h3>
-
-                <a href="#" class="btn">Reserve!</a>
-            </div>
-            
-        </div>
-
-
-
-
-
-    </div>
-    <div class="outside_tables" id="out">
-        <h1 class="heading"> outside Tables: </h1>
-        <div class="box-container">
-            <div class="box">
-                <img src="~/assets/images/table.png" alt="">
-                <h3>Two persons table</h3>
-
-                <a href="#" class="btn">Reserve!</a>
-            </div>
-
-            <div class="box">
-                <img src="~/assets/images/table.png" alt="">
-                <h3>Two persons table</h3>
-
-                <a href="#" class="btn">Reserve!</a>
-            </div>
-            <div class="box">
-                <img src="~/assets/images/table.png" alt="">
-                <h3>Two persons table</h3>
-
-                <a href="#" class="btn">Reserve!</a>
-            </div>
-            <div class="box">
-                <img src="~/assets/images/table.png" alt="">
-                <h3>Two persons table</h3>
-
-                <a href="#" class="btn">Reserve!</a>
-            </div>
-            <div class="box">
-                <img src="~/assets/images/table.png" alt="">
-                <h3>Two persons table</h3>
-
-                <a href="#" class="btn">Reserve!</a>
-            </div>
-        </div>
-
-    </div>
-
-
-</section>
-<!-- book table section ends-->
-<!-- footer section starts  -->
-
-<section class="footer">
-
-    <div class="share">
-        <a href="#" class="fab fa-instagram"></a>
-    </div>
-
-</section>
+</body>
 
 <!-- footer section ends -->
 <!-- custom js file link  -->
