@@ -1,6 +1,5 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+@model coffee_shop.ViewModels.ProductViewModel
+    @using coffee_shop.Models;
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -13,15 +12,16 @@
         <img src="~/assets/images/logo.png" alt="">
     </a>
 
-    <nav class="navbar">
-        <a href="#home">home</a>
-        <a href="#about">about</a>
-        <a href="#menu">menu</a>
-        <a href="#location">location</a>
-        <a href="#tables">bookTable</a>
-        <a href="../Register/Register">Register</a>
-
-    </nav>
+   <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="#about">about</a>
+            <a href="#menu">menu</a>
+            <a href="#location">location</a>
+            <a href="#tables">bookTable</a>
+            <a href="../Home/Register">Register</a>
+            <a href="../Home/Login">Login</a>
+           @Html.ActionLink("Product", "Enter", "Product")
+        </nav>
 
     <div class="icons">
         <div class="fas fa-search" id="search-btn"></div>
@@ -113,89 +113,95 @@
 
 <section class="menu" id="menu">
 
-    <h1 class="heading"> our <span>menu</span> </h1>
+        <h1 class="heading"> our <span>menu</span> </h1>
+        @foreach(product mypro in Model.products)
+            {
 
+           
     <div class="box-container">
         <div class="box">
-            <img src="../assets/images/menu-1.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
+            <img src="@Url.Content(mypro.Description)" width="300" height="300" />
+            <h3>  @mypro.ProductName</h3>
+            <div class="price"> @mypro.Price <span>20.99</span></div>
             <a href="#" class="btn">add to cart</a>
         </div>
+        
+        </div>
+        }
+        @*
+            <a href="#"><div class="box">
+                <img src="../assets/images/menu-2.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
 
-        <div class="box">
-            <img src="../assets/images/menu-2.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
+            <div class="box">
+                <img src="../assets/images/menu-3.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
 
-        <div class="box">
-            <img src="../assets/images/menu-3.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
+            <div class="box">
+                <img src="../assets/images/menu-4.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
 
-        <div class="box">
-            <img src="../assets/images/menu-4.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
+            <div class="box">
+                <img src="../assets/images/menu-5.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
 
-        <div class="box">
-            <img src="../assets/images/menu-5.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
+            <div class="box">
+                <img src="../assets/images/menu-6.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
+            <div class="box">
+                <img src="../assets/images/menu-6.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
+            <div class="box">
+                <img src="../assets/images/menu-6.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
+            <div class="box">
+                <img src="../assets/images/menu-6.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
+            <div class="box">
+                <img src="../assets/images/menu-6.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
+            <div class="box">
+                <img src="../assets/images/menu-6.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
+            <div class="box">
+                <img src="../assets/images/menu-6.png" alt="">
+                <h3>tasty and healty</h3>
+                <div class="price">$15.99 <span>20.99</span></div>
+                <a href="#" class="btn">add to cart</a>
+            </div>
 
-        <div class="box">
-            <img src="../assets/images/menu-6.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
         </div>
-        <div class="box">
-            <img src="../assets/images/menu-6.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
-        <div class="box">
-            <img src="../assets/images/menu-6.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
-        <div class="box">
-            <img src="../assets/images/menu-6.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
-        <div class="box">
-            <img src="../assets/images/menu-6.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
-        <div class="box">
-            <img src="../assets/images/menu-6.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
-        <div class="box">
-            <img src="../assets/images/menu-6.png" alt="">
-            <h3>tasty and healty</h3>
-            <div class="price">$15.99 <span>20.99</span></div>
-            <a href="#" class="btn">add to cart</a>
-        </div>
-
-    </div>
-
+        *@
 </section>
 
 <!-- menu section ends -->
