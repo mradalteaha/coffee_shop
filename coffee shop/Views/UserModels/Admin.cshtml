@@ -1,24 +1,28 @@
 ﻿
-@model coffee_shop.viewmodels.viewProductModel
+@model coffee_shop.viewmodels.MultiModels
 @using coffee_shop.Models;
+@using System.Web;
 @{
     ViewBag.Title = "Admin";
 }
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<script>
-    function myFunction() {
 
-        alert(123);
-
-        return true
-    }
-</script>
 <!-- design css file link  -->
 <link rel="stylesheet" href="~/Content/Site.css">
 
-
+<script type="text/javascript">
+    function AddtoCart() {
+        
+        $.ajax({
+            async: true, type: 'POST', contentType: false, processData: false, data: formData, url: '/UserModels/AddTinside',
+            success: function (data) { if (data.success) { $("#cartitem").text("Cart(" + data.Counter + ")"); } }
+            , error: function () {
+                alert("Problem occured")
+            }
+        })
+    }</script>
 
 
 
@@ -46,40 +50,34 @@
     <section class="menu" id="menu">
 
         <h1 class="heading"> our <span>menu</span> </h1>
-        
-        @foreach (product mypro in Model.products)
-        {
+        <div class="box-container">
+            @foreach (product mypro in Model.products)
+            {
 
 
-            <div class="box-container">
+
                 <div class="box">
-                    <img src="@Url.Content(mypro.imagePath)"  />
+                    <img src="@Url.Content(mypro.imagePath)" />
                     <h3>  @mypro.productName</h3>
                     <h2>@mypro.productDesc</h2>
                     <div class="price"> @mypro.productPrice <span> @mypro.productOldP</span></div>
                     <div>
-                        <div class="inputBox">
-                            <span class="fas fa-shekel-sign"></span>
-                            @Html.EditorFor(model => model.myprod.productOldP, new { htmlAttributes = new { @placeholder = "New Price" } })
-                        </div>
+
                         &nbsp;
                         <div>
 
-                            <input onclick="javascript:window.location=('@Url.Action("Delete", "UserModels",  new { id = mypro.productId })')" type="button" value="Delete product" class="btn btn-primary" id="btnSave" />
+                            <input onclick="javascript:window.location=('@Url.Action("Delete", "UserModels", new { id = mypro.productId })')" type="button" value="Delete product" class="btn btn-primary" id="btnSave" />
                             &nbsp;
-                            <input onclick="javascript:window.location=('@Url.Action("Edit", "UserModels",  new {  id = mypro.productId  })')" type="button" value="Update Price" class="btn btn-primary" id="btnSave" />
+                            <input onclick="javascript:window.location=('@Url.Action("Edit", "UserModels", new { id = mypro.productId })')" type="button" value="Edit Price" class="btn btn-primary" id="btnSave" />
 
                         </div>
 
                     </div>
 
                 </div>
+            }
 
-            </div>
-        }
-
-
-
+        </div>
 
 
 
@@ -126,11 +124,11 @@
 
 
                 <div>
-                <input type="submit" value="add item to menu" class="btn btn-primary" id="btnSave" />
-                &nbsp;
-                <input type="reset" value="Reset" name="reset" class="btn btn-danger" />
+                    <input type="submit" value="add item to menu" class="btn btn-primary" id="btnSave" />
+                    &nbsp;
+                    <input type="reset" value="Reset" name="reset" class="btn btn-danger" />
 
-            </div>
+                </div>
             }
         </div>
 
@@ -147,27 +145,49 @@
         <h1 class="table_heading"> <span> Book your table: </span> </h1>
 
         <div class="inside_tables" id="inside">
-            &nbsp;
-            <div>
-                <input type="submit" value="add Table" class="btn btn-primary" id="btnSave" />
-                &nbsp;
-                <input type="reset" value="Remove Table" name="reset" class="btn btn-danger" />
+            @using (Html.BeginForm("AddTinside", "UserModels", FormMethod.Post))
+            {<div>
+                    <input type="submit" value="add Table" class="btn btn-primary" id="btnSave" />
+                    
 
-            </div>
+                </div>
+            }
+
+            @using (Html.BeginForm("removeTinside", "UserModels", FormMethod.Post))
+            {<div>
+                    <input type="submit" value="Remove Table" class="btn btn-primary" id="btnSave" />
+                 
+
+                </div>
+            }
+
+
+
             <h1 class="heading"> inside Tables: </h1>
             <div class="box-container">
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
 
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
+                @foreach (seat place in Model.seats)
+                {
+                    if (place.place.Trim() == "inside")
+                    {
+                        <div class="box">
+                            <img src="~/assets/images/table.png" alt="">
+                            <h3>Two persons table</h3>
+                            <style>
+                        .tables .box-container .box {
+                            padding: 5rem;
+                            text-align: center;
+                            border: var(--border);
+                            background-color: @place.occupied;
+                        }
+                            </style>
+                            <a href="#" class="btn">Reserve!</a>
+                        </div>
 
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
+
+
+                    }
+                }
 
             </div>
 
@@ -178,45 +198,47 @@
         </div>
         <div class="outside_tables" id="out">
             <h1 class="heading"> outside Tables: </h1>
-            &nbsp;
-            <div>
-                <input type="submit" value="add Table" class="btn btn-primary" id="btnSave" />
-                &nbsp;
-                <input type="reset" value="Remove Table" name="reset" class="btn btn-danger" />
+            @using (Html.BeginForm("AddTout", "UserModels", FormMethod.Post))
+            {<div>
+                    <input type="submit" value="add Table" class="btn btn-primary" id="btnSave" />
 
-            </div>
+
+                </div>
+            }
+
+            @using (Html.BeginForm("removeTout", "UserModels", FormMethod.Post))
+            {<div>
+                    <input type="submit" value="Remove Table" class="btn btn-primary" id="btnSave" />
+
+
+                </div>
+            }
+
             <div class="box-container">
+
+                @foreach (seat place in Model.seats)
+                {
+                    if (place.place.Trim() == "out")
+                    {
                 <div class="box">
                     <img src="~/assets/images/table.png" alt="">
                     <h3>Two persons table</h3>
-
+                    <style>
+                        .tables .box-container .box {
+                            padding: 5rem;
+                            text-align: center;
+                            border: var(--border);
+                            background-color: @place.occupied;
+                        }
+                    </style>
                     <a href="#" class="btn">Reserve!</a>
                 </div>
 
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
+                    }
 
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
+                }
 
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
 
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
-
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
             </div>
 
         </div>
@@ -228,7 +250,7 @@
 
 </body>
 
-<!-- footer section ends -->
+
 <!-- custom js file link  -->
 <script>src = "~/Scripts/myFunctions/script.js</script>
 <script>src = "~/Scripts></script>

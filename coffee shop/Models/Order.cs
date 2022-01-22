@@ -11,17 +11,11 @@ namespace coffee_shop.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
-
-    public partial class product
+    
+    public partial class Order
     {
-        public int productId { get; set; }
-        public string productName { get; set; }
-        public decimal productPrice { get; set; }
-        public string productDesc { get; set; }
-        public decimal productOldP { get; set; }
-        public string imagePath { get; set; }
-
-        public HttpPostedFileBase imgfile { get; set; }
+        public int Orderid { get; set; }
+        public System.DateTime OrderDate { get; set; }
+        public string OrderNumber { get; set; }
     }
 }

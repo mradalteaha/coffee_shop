@@ -9,6 +9,7 @@
 
 namespace coffee_shop.Models
 {
+    using coffee_shop.viewmodels;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -27,5 +28,9 @@ namespace coffee_shop.Models
     
         public virtual DbSet<product> products { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<ShoppingCartModel> ShoppingCartModels { get; set; }
+        public virtual DbSet<seat> seats { get; set; }
     }
 }

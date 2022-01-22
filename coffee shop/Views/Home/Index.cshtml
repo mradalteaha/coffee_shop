@@ -1,4 +1,4 @@
-﻿@model coffee_shop.viewmodels.viewProductModel
+﻿@model coffee_shop.viewmodels.MultiModels
 @using coffee_shop.Models;
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -36,7 +36,7 @@
             <h3>BORED? SAD ? HAPPY ? COFFEE ALWAYS WORKS!!</h3>
             <p>we have the best coffee and shisha with (veritaty of flavors) in the city with one of the best services </p>
             <a href="#tables" class="btn">book your table now !!</a>
-           
+
         </div>
 
     </section>
@@ -58,7 +58,7 @@
                 <h3>what makes our coffee special?</h3>
                 <p>we have the best coffe in the city it's organic and fresh</p>
                 <p>we also serve shisha , and cold drinks all halal no worries XD</p>
-                
+
             </div>
 
         </div>
@@ -71,21 +71,23 @@
     <section class="menu" id="menu">
 
         <h1 class="heading"> our <span>menu</span> </h1>
-        @foreach (product mypro in Model.products)
-        {
+
+        <div class="box-container">
+            @foreach (product mypro in Model.products)
+            {
 
 
-            <div class="box-container">
+
                 <div class="box">
-                    <img src="@Url.Content(mypro.imagePath)"  />
+                    <img src="@Url.Content(mypro.imagePath)" />
                     <h3>  @mypro.productName</h3>
                     <h2>  @mypro.productDesc</h2>
                     <div class="price"> @mypro.productPrice <span> @mypro.productOldP</span></div>
                     <a href="../Home/Login" class="btn">add to cart</a>
                 </div>
+            }
+        </div>
 
-            </div>
-        }
 
 
 
@@ -142,85 +144,63 @@
 
         <h1 class="table_heading"> <span> Book your table: </span> </h1>
 
-        <div class="inside_tables" >
+        <div class="inside_tables">
             <h1 class="heading"> outside Tables: </h1>
             <div class="box-container">
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
+                @foreach (seat place in Model.seats)
+                {
+                    if (place.place.Trim() == "inside")
+                    {
+                        <div class="box">
+                            <img src="~/assets/images/table.png" alt="">
+                            <h3>Two persons table</h3>
+                            <style>
+                        .tables .box-container .box {
+                            padding: 5rem;
+                            text-align: center;
+                            border: var(--border);
+                            background-color: @place.occupied;
+                        }
+                            </style>
+                            <a href="#" class="btn">Reserve!</a>
+                        </div>
 
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
 
 
-
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
-
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
-
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
-
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
-
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
+                    }
+                }
             </div>
-       
+
 
 
 
 
         </div>
-        <div class="outside_tables" >
+        <div class="outside_tables">
             <h1 class="heading"> outside Tables: </h1>
             <div class="box-container">
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
+                @foreach (seat place in Model.seats)
+                {
+                    if (place.place.Trim() == "out")
+                    {
+                        <div class="box">
+                            <img src="~/assets/images/table.png" alt="">
+                            <h3>Two persons table</h3>
+                            <style>
+                        .tables .box-container .box {
+                            padding: 5rem;
+                            text-align: center;
+                            border: var(--border);
+                            background-color: @place.occupied;
+                        }
+                            </style>
+                            <a href="#" class="btn">Reserve!</a>
+                        </div>
 
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
 
 
-
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
-
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
-
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
-
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
-                <div class="box">
-                    <img src="~/assets/images/table.png" alt="">
-                    <h3>Two persons table</h3>
-
-                    <a href="#" class="btn">Reserve!</a>
-                </div>
+                    }
+                }
             </div>
 
         </div>
@@ -233,7 +213,7 @@
     <section class="footer">
 
         <div class="share">
-            <a href="#" class="fab fa-instagram"></a>
+            <a href="https://www.instagram.com/mrad_teaha" class="fab fa-instagram"></a>
         </div>
 
     </section>

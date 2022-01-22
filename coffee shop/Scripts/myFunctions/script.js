@@ -50,7 +50,16 @@ function Add() {
 
 }
 
-
+function AddtoCart(item) {
+    var itemid = $(item).attr("itemid"); var formData = new FormData();
+    formData.append("itemid", itemid);
+    $.ajax({
+        async: true, type: 'POST', contentType: false, processData: false, data: formData, url: '/UserModels/Index', success: function (data) {
+            if (data.success)
+            { $("#cartitem").text("Cart(" + data.Counter + ")"); }
+        }, error: function () { alert("Problem occured") }
+    })
+}
 function alreadyexist() {
 
     alert("User already exist");

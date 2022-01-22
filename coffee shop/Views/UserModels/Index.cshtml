@@ -1,4 +1,6 @@
-﻿@model IEnumerable<coffee_shop.Models.UserModel>
+﻿@model coffee_shop.viewmodels.MultiModels
+@using coffee_shop.Models;
+@using System.Web;
 
 @{
     ViewBag.Title = "Index";
@@ -8,140 +10,277 @@
 
 <!-- design css file link  -->
 <link rel="stylesheet" href="~/Content/User.css">
+<script type="text/javascript">
+    function AddtoCart(item) {
+        var itemid = $(item).attr("itemid");
+        var formData = new FormData();
+        formData.append("itemid", itemid);
+        $.ajax({
+            async: true,
+            type: 'POST',
+            contentType: false, processData: false,
+            data: formData,
+            url: '/UserModels/Index',
+            success: function (data) {
+                if (data.success) {
+                    $("#cartitem").text("Cart(" + data.Counter + ")");
+                }
+            }, error: function () {
+                alert("Problem occured")
+            }
+        })
+    }
 
-<header class="header">
+</script>
+<script type="text/javascript">
 
-    <a href="#" class="logo">
-        <img src="~/assets/images/logo.png" alt="">
-    </a>
+    function togleNav() {
+      
 
-    <nav class="navbar">
-        <a href="#home">home</a>
-        <a href="#about">about</a>
-        <a href="#menu">menu</a>
-        <a href="#location">location</a>
-        <a href="#tables">bookTable</a>
+        let navbar = document.querySelector('.navbar');
 
+        let cartItem = document.querySelector('.cart-items-container');
 
-
-    </nav>
-
-    <div class="icons">
-        <div class="fas fa-search" id="search-btn"></div>
-        <div class="fas fa-shopping-cart" id="cart-btn"></div>
-        <div class="fas fa-bars" id="menu-btn"></div>
-    </div>
-
-    <div class="search-form">
-        <input type="search" id="search-box" placeholder="search here...">
-        <label for="search-box" class="fas fa-search"></label>
-    </div>
-
-    <div class="cart-items-container">
-        <div class="cart-item">
-            <span class="fas fa-times"></span>
-            <img src="~/assets/images/cart-item-1.png" alt="">
-            <div class="content">
-                <h3>cart item 01</h3>
-                <div class="price">$15.99/-</div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <span class="fas fa-times"></span>
-            <img src="~/assets/images/cart-item-2.png" alt="">
-            <div class="content">
-                <h3>cart item 02</h3>
-                <div class="price">$15.99/-</div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <span class="fas fa-times"></span>
-            <img src="~/assets/images/cart-item-3.png" alt="">
-            <div class="content">
-                <h3>cart item 03</h3>
-                <div class="price">$15.99/-</div>
-            </div>
-        </div>
-        <div class="cart-item">
-            <span class="fas fa-times"></span>
-            <img src="~/assets/images/cart-item-4.png" alt="">
-            <div class="content">
-                <h3>cart item 04</h3>
-                <div class="price">$15.99/-</div>
-            </div>
-        </div>
-        <a href="#" class="btn">checkout now</a>
-    </div>
-
-</header>
-<body>
-    <script src="~/Scripts/myFunctions/script.js"></script>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isAdmin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isBarista)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.isAdmin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.isBarista)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
+        document.querySelector('#cart-btn').onclick = () => {
+            cartItem.classList.toggle('active');
+           
+            reload();
         }
+        
+    
+    }
+    function reload() {
+        var container = document.getElementById("cart-items-container");
+        var content = container.innerHTML;
+        container.innerHTML = content;
 
-    </table>
-</body>>
+        //this line is to watch the result in console , you can remove it later	
+        console.log("Refreshed");
+    }
+    window.onscroll = () => {
+     
+        cartItem.classList.remove('active');
+    }
+  
+
+</script>
+
+<body>
+    <header class="header">
+
+        <a href="#" class="logo">
+            <img src="~/assets/images/logo.png" alt="">
+        </a>
+
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="#about">about</a>
+            <a href="#menu">menu</a>
+            <a href="#location">location</a>
+            <a href="#tables">bookTable</a>
+            @Html.Partial("ShoppingCart")
+
+            <a href="#">LogOut</a>
+
+        </nav>
+     
+
+
+
+    </header>
+
+
+
+    <section class="home" id="home">
+
+        <div class="content">
+            <h3>BORED? SAD ? HAPPY ? COFFEE ALWAYS WORKS!!</h3>
+            <p>we have the best coffee and shisha with (veritaty of flavors) in the city with one of the best services </p>
+            <a href="#tables" class="btn">book your table now !!</a>
+
+        </div>
+
+    </section>
+
+    <!-- home section ends -->
+    <!-- about section starts  -->
+
+    <section class="about" id="about">
+
+        <h1 class="heading"> <span>about</span> us </h1>
+
+        <div class="row">
+
+            <div class="image">
+                <img src="../assets/images/about-img.jpeg" alt="">
+            </div>
+
+            <div class="content">
+                <h3>what makes our coffee special?</h3>
+                <p>we have the best coffe in the city it's organic and fresh</p>
+                <p>we also serve shisha , and cold drinks all halal no worries XD</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- about section ends -->
+    <!-- menu section starts  -->
+
+    <section class="menu" id="menu">
+
+        <h1 class="heading"> our <span>menu</span> </h1>
+
+        <div class="box-container">
+            @foreach (product mypro in Model.products)
+            {
+
+
+
+                <div class="box">
+                    <img src="@Url.Content(mypro.imagePath)" />
+                    <h3>  @mypro.productName</h3>
+                    <h2>  @mypro.productDesc</h2>
+                    <div class="price"> @mypro.productPrice <span> @mypro.productOldP</span></div>
+                    <input type="button" name="AddtoCart" value="Add to Cart" class="btn btn-primary" itemid="@mypro.productId" id="btnaddtoCart" onclick="AddtoCart(this)" />
+                </div>
+            }
+        </div>
+
+
+
+
+
+    </section>
+
+    <!-- menu section ends -->
+    <!-- location and navigation section start  -->
+
+    <section class="location" id="location">
+
+        <h1 class="heading"> <span>Navigate to our </span> Cafe</h1>
+
+        <div class="row">
+
+            <div class="mapouter">
+                <div class="gmap_canvas">
+                    <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=rahat,zone%204&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org">123movies</a><br>
+                    <style>
+                        .mapouter {
+                            position: relative;
+                            text-align: right;
+                            height: 500px;
+                            width: 600px;
+                        }
+                    </style><a href="https://www.embedgooglemap.net">use google maps on website</a>
+                    <style>
+                        .gmap_canvas {
+                            overflow: hidden;
+                            background: none !important;
+                            height: 500px;
+                            width: 600px;
+                        }
+                    </style>
+                </div>
+            </div>
+            <div class="content">
+                <h3>Our Address</h3>
+                <p>Rahat,</p>
+                <p>Zone 4, Main street</p>
+                <p>We have Free parking slots for our customers !!</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- location and navigation -->
+    <!-- book table section start -->
+
+    <section class="tables" id="tables">
+
+
+        <h1 class="table_heading"> <span> Book your table: </span> </h1>
+
+        <div class="inside_tables">
+            <h1 class="heading"> inside Tables: </h1>
+            <div class="box-container">
+                @foreach (seat place in Model.seats)
+                {
+                    if (place.place.Trim() == "inside")
+                    {
+                        <div class="box">
+                            <img src="~/assets/images/table.png" alt="">
+                            <h3>Two persons table</h3>
+                            <style>
+                        .tables .box-container .box {
+                            padding: 5rem;
+                            text-align: center;
+                            border: var(--border);
+                            background-color: @place.occupied;
+                        }
+                            </style>
+                            <a href="#" class="btn">Reserve!</a>
+                        </div>
+
+
+
+                    }
+                }
+            </div>
+
+
+
+
+
+        </div>
+        <div class="outside_tables">
+            <h1 class="heading"> outside Tables: </h1>
+            <div class="box-container">
+                @foreach (seat place in Model.seats)
+                {
+                    if (place.place.Trim() == "out")
+                    {
+                        <div class="box">
+                            <img src="~/assets/images/table.png" alt="">
+                            <h3>Two persons table</h3>
+                            <style>
+                        .tables .box-container .box {
+                            padding: 5rem;
+                            text-align: center;
+                            border: var(--border);
+                            background-color: @place.occupied;
+                        }
+                            </style>
+                            <a href="#" class="btn">Reserve!</a>
+                        </div>
+
+
+
+                    }
+                }
+            </div>
+
+        </div>
+
+
+    </section>
+    <!-- book table section ends-->
+    <!-- footer section starts  -->
+
+    <section class="footer">
+
+        <div class="share">
+            <a href="https://www.instagram.com/mrad_teaha" class="fab fa-instagram"></a>
+        </div>
+
+    </section>
+
+    <!-- footer section ends -->
+    <!-- custom js file link  -->
+   
+
+</body>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<coffee_shop.viewmodels.ShoppingCartModel>
+
+
+@{
+    ViewBag.Title = "ShoppingCart";
+    decimal totalamount = 0.00M;
+
+}
+
+
+
+
+<h2>ShoppingCart</h2>
+<body style="background-color:green">
+    @using (Html.BeginForm("AddOrder", "UserModels", FormMethod.Post))
+    {
+        <font color="white">
+
+            <table class="table-condensed" style="width:100%">
+                @foreach (var item in Model)
+                {
+                    totalamount += item.total;
+
+                    <tr>
+                        <td>
+                            <img src="@Url.Content(item.imagepath)" height="30px" width="30px" class="img-rounded" />
+
+                        </td>
+                        <td>
+                            <font color="white">@item.itemid</font>
+
+
+                        </td>
+                        <td>
+                            <font color="white">@item.Quantity.ToString()</font>
+
+                        </td>
+                        <td>
+                            <font color="white">@item.unitprice.ToString()</font>
+                        </td>
+                        <td>
+                            <font color="white"> @item.total.ToString()</font>
+                        </td>
+
+
+                    </tr>
+                }
+
+                <tr>
+                    <td colspan="4">
+                        <h3><font color="white">Total amount</font></h3>
+                    </td>
+                    <td>
+                        <h3><font color="white">@totalamount.ToString()</font></h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Order" name="Buy" class="btn btn-primary" id="BuyOr" />
+                    </td>
+                </tr>
+            </table>
+        </font>
+    }
+</body>

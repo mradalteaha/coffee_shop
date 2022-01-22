@@ -31,15 +31,14 @@ namespace coffee_shop.Models
         [Required]
         public string PhoneNumber { get; set; }
 
-        //[StringLength(10)]
-        //[Required(ErrorMessage = "Please select a Role")]
-        //public string Role { get; set; }
+        
 
         public string Password { get; set; }
         public bool isAdmin { get; set; }
         public bool isBarista { get; set; }
         public bool isVip { get; set; }
         public int cupcounter { get; set; }
+
 
 
     }

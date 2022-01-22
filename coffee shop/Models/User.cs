@@ -23,7 +23,7 @@ namespace coffee_shop.Models
         public string Password { get; set; }
         public Nullable<bool> isAdmin { get; set; }
         public bool isBarista { get; set; }
-        public bool isVip { get; set; }
-        public int cupcounter { get; set; }
+        public Nullable<bool> isVip { get; set; }
+        public Nullable<int> cupcounter { get; set; }
     }
 }

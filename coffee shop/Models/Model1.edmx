@@ -4,17 +4,58 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CoffeeShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CoffeeShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="OrderDetails" />
+          </Key>
+          <Property Name="OrderDetails" Type="int" Nullable="false" />
+          <Property Name="Orderid" Type="int" Nullable="false" />
+          <Property Name="itemid" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Quantetity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Orderid" />
+          </Key>
+          <Property Name="Orderid" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="products">
           <Key>
             <PropertyRef Name="productId" />
           </Key>
           <Property Name="productId" Type="int" Nullable="false" />
-          <Property Name="productName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="productName" Type="nchar" MaxLength="100" Nullable="false" />
           <Property Name="productPrice" Type="numeric" Precision="18" Scale="2" Nullable="false" />
           <Property Name="productDesc" Type="nchar" MaxLength="250" Nullable="false" />
           <Property Name="productOldP" Type="numeric" Precision="18" Scale="2" Nullable="false" />
           <Property Name="imagePath" Type="nchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="seats">
+          <Key>
+            <PropertyRef Name="seatId" />
+          </Key>
+          <Property Name="seatId" Type="int" Nullable="false" />
+          <Property Name="reserver" Type="nchar" MaxLength="500" Nullable="false" />
+          <Property Name="occupied" Type="nchar" MaxLength="500" Nullable="false" />
+          <Property Name="available" Type="bit" Nullable="false" />
+          <Property Name="place" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="cartID" />
+          </Key>
+          <Property Name="cartID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="productName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="productPrice" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="imagePath" Type="nchar" MaxLength="500" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="total" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CoffeeShop.dbo.User' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -22,19 +63,29 @@ warning 6002: The table/view 'CoffeeShop.dbo.User' does not have a primary key d
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="isBarista" />
+            
+            
+            
+            
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="isAdmin" Type="bit" />
           <Property Name="isBarista" Type="bit" Nullable="false" />
+          <Property Name="isVip" Type="bit" />
+          <Property Name="cupcounter" Type="int" />
         </EntityType>
         <EntityContainer Name="CoffeeShopModelStoreContainer">
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="seats" EntityType="Self.seats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [User].[Id] AS [Id], 
@@ -45,12 +96,13 @@ warning 6002: The table/view 'CoffeeShop.dbo.User' does not have a primary key d
     [User].[PhoneNumber] AS [PhoneNumber], 
     [User].[Password] AS [Password], 
     [User].[isAdmin] AS [isAdmin], 
-    [User].[isBarista] AS [isBarista]
+    [User].[isBarista] AS [isBarista], 
+    [User].[isVip] AS [isVip], 
+    [User].[cupcounter] AS [cupcounter]
     FROM [dbo].[User] AS [User]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CoffeeShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -59,7 +111,7 @@ warning 6002: The table/view 'CoffeeShop.dbo.User' does not have a primary key d
             <PropertyRef Name="productId" />
           </Key>
           <Property Name="productId" Type="Int32" Nullable="false" />
-          <Property Name="productName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="productName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="productPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="productDesc" Type="String" MaxLength="250" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="productOldP" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
@@ -71,19 +123,66 @@ warning 6002: The table/view 'CoffeeShop.dbo.User' does not have a primary key d
             <PropertyRef Name="isBarista" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="isAdmin" Type="Boolean" />
           <Property Name="isBarista" Type="Boolean" Nullable="false" />
+          <Property Name="isVip" Type="Boolean" />
+          <Property Name="cupcounter" Type="Int32" />
         </EntityType>
         <EntityContainer Name="CoffeeShopEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="products" EntityType="Self.product" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="OrderDetails" EntityType="CoffeeShopModel.OrderDetail" />
+          <EntitySet Name="Orders" EntityType="CoffeeShopModel.Order" />
+          <EntitySet Name="ShoppingCarts" EntityType="CoffeeShopModel.ShoppingCart" />
+          <EntitySet Name="seats" EntityType="CoffeeShopModel.seat" />
         </EntityContainer>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetails" />
+          </Key>
+          <Property Name="OrderDetails" Type="Int32" Nullable="false" />
+          <Property Name="Orderid" Type="Int32" Nullable="false" />
+          <Property Name="itemid" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Quantetity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Orderid" />
+          </Key>
+          <Property Name="Orderid" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="cartID" />
+          </Key>
+          <Property Name="cartID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="productName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="productPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="imagePath" Type="String" Nullable="false" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="total" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="seat">
+          <Key>
+            <PropertyRef Name="seatId" />
+          </Key>
+          <Property Name="seatId" Type="Int32" Nullable="false" />
+          <Property Name="reserver" Type="String" Nullable="false" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="occupied" Type="String" Nullable="false" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="available" Type="Boolean" Nullable="false" />
+          <Property Name="place" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -105,6 +204,8 @@ warning 6002: The table/view 'CoffeeShop.dbo.User' does not have a primary key d
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="CoffeeShopModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="cupcounter" ColumnName="cupcounter" />
+                <ScalarProperty Name="isVip" ColumnName="isVip" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -114,6 +215,51 @@ warning 6002: The table/view 'CoffeeShop.dbo.User' does not have a primary key d
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
                 <ScalarProperty Name="isBarista" ColumnName="isBarista" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="CoffeeShopModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Quantetity" ColumnName="Quantetity" />
+                <ScalarProperty Name="itemid" ColumnName="itemid" />
+                <ScalarProperty Name="Orderid" ColumnName="Orderid" />
+                <ScalarProperty Name="OrderDetails" ColumnName="OrderDetails" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="CoffeeShopModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="Orderid" ColumnName="Orderid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCarts">
+            <EntityTypeMapping TypeName="CoffeeShopModel.ShoppingCart">
+              <MappingFragment StoreEntitySet="ShoppingCart">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="imagePath" ColumnName="imagePath" />
+                <ScalarProperty Name="productPrice" ColumnName="productPrice" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="cartID" ColumnName="cartID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="seats">
+            <EntityTypeMapping TypeName="CoffeeShopModel.seat">
+              <MappingFragment StoreEntitySet="seats">
+                <ScalarProperty Name="place" ColumnName="place" />
+                <ScalarProperty Name="available" ColumnName="available" />
+                <ScalarProperty Name="occupied" ColumnName="occupied" />
+                <ScalarProperty Name="reserver" ColumnName="reserver" />
+                <ScalarProperty Name="seatId" ColumnName="seatId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

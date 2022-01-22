@@ -7,6 +7,10 @@
       <Diagram DiagramId="760620e4123844bf80f00c80175e34c5" Name="Diagram1">
         <EntityTypeShape EntityType="CoffeeShopModel.product" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CoffeeShopModel.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopModel.OrderDetail" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CoffeeShopModel.Order" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CoffeeShopModel.ShoppingCartModel" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CoffeeShopModel.seat" Width="1.5" PointX="5.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

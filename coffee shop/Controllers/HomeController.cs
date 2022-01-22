@@ -13,19 +13,45 @@ namespace coffee_shop.Controllers
     {
 
         private UserDal db = new UserDal();
+
+        
+        private CoffeeShopEntities enit;
+        private MultiModels pvm;
+        private List<product> products;
+        private List<seat> seats;
+
+
+
+        public HomeController()
+        {
+            enit = new CoffeeShopEntities();
+            pvm = new MultiModels();
+            products = enit.products.ToList<product>();
+            seats = enit.seats.ToList<seat>();
+            pvm.mycart = new ShoppingCartModel();
+           
+            pvm.seats = new List<seat>();
+
+
+
+
+        }
+
+        // GET: HomeController
+
+
+
         public ActionResult Index()
+
         {
 
-           
-                CoffeeShopEntities enit = new CoffeeShopEntities();
-                viewProductModel pvm = new viewProductModel();
-                List<product> products = enit.products.ToList<product>();
-                pvm.myprod = new product();
-                pvm.products = products;
-                return View(pvm);
-            
-          
+
+            pvm.products = products;
+            pvm.seats = seats;
+
+            return View(pvm);
         }
+      
 
     
 

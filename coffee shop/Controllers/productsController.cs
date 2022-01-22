@@ -7,6 +7,7 @@ using coffee_shop.Models;
 using coffee_shop.viewmodels;
 using System.IO;
 using System.Net;
+using System.Data.Entity;
 
 namespace coffee_shop.Controllers
 {
@@ -17,7 +18,7 @@ namespace coffee_shop.Controllers
         public ActionResult Enter()
         {
             CoffeeShopEntities enit = new CoffeeShopEntities();
-            viewProductModel pvm = new viewProductModel();
+            ViewProductModel pvm = new ViewProductModel();
             List<product> products = enit.products.ToList<product>();
             pvm.myprod = new product();
             pvm.products = products;
@@ -28,7 +29,7 @@ namespace coffee_shop.Controllers
         [HttpPost]
         public ActionResult Submit()
         {
-            viewProductModel pvm = new viewProductModel();
+            ViewProductModel pvm = new ViewProductModel();
             product myprod = new product()
             {
                 productId = Convert.ToInt32(Request.Form["myprod.ProductID"]),
@@ -65,11 +66,46 @@ namespace coffee_shop.Controllers
 
         }
 
- 
+
+        // GET: Items/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            CoffeeShopEntities enit = new CoffeeShopEntities();
+            if (id == null)
+            {
+                return View("Enter");
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            product myprod = enit.products.Find(id);
+            if (myprod == null)
+            {
+                return HttpNotFound();
+            }
+            return View(myprod);
+        }
+
+        // POST: Items/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,ItemDescription,price,images,availability,sales,age,isonSale,newPrice")] product myprod)
+        {
+            CoffeeShopEntities enit = new CoffeeShopEntities();
+            
+            if (ModelState.IsValid)
+            {
+                enit.Entry(myprod).State = EntityState.Modified;
+                enit.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(myprod);
+        }
+
         public ActionResult ProView()
         {
             CoffeeShopEntities enit = new CoffeeShopEntities();
-            viewProductModel pvm = new viewProductModel();
+            ViewProductModel pvm = new ViewProductModel();
             List<product> products = enit.products.ToList<product>();
             pvm.myprod = new product();
             pvm.products = products;
